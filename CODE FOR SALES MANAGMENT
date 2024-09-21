@@ -1,0 +1,63 @@
+import numpy as np
+import matplotlib.pyplot as plt 
+
+med_name = np.array(['paracetamol','amoxylin','creatine','cough syrup'])
+med_price = np.array([10.5,20,15,30])
+med_quantity = np.array([100,50.75,30])
+
+def display_inventory ():
+    print("current inventory: ")
+    for i in range (len(med_name)):
+        print(f"{med_name[i]} - PRICE: {med_price[i]} - QUANTITY{med_quantity[i]}" )
+        print("\n")
+
+def addmedicine(name,price,quantity):
+    global med_name,med_price,med_quantity
+    med_name = np.append(med_name,name)
+    med_price = np.append(med_price,price)
+    med_quantity = np.append(med_quantity,quantity)
+
+def updatequantity(name,quantity_sold):
+    global med_quantity
+    index = np.where(med_name == name)[0]
+    if len(index) > 0:
+        if med_quantity[index] >= quantity_sold:
+            med_quantity -= quantiy_sold
+        else:
+            print("insuffient stock")
+
+    else:
+        print( f"{name} mot found in inventory" )
+def calculate_sales_profit():
+    sales = med_price *(100 -med_quantity)
+    profit = np.sum(sales)
+    print(f"total sales: {np.sum(sales)}")
+    print(f"total profit: {profit}")
+
+def draw_scattr_plot():
+    plt.scatter(med_name, med_price*med_quantity)
+    plt.title('medicine sale')
+    plt.xlabel('medicines')
+    plt.ylabel('sales')
+    plt.show()
+    
+    
+    
+    
+    
+    
+display_inventory()
+
+addmedicine('antibiotic',26,60)
+
+
+
+updatequantity('paracetamol',10)
+updatequantity('creatine',6)
+
+calculate_sales_profit()
+
+
+draw_scattr_plot()
+
+display_inventory()
